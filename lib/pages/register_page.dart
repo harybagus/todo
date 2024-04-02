@@ -3,22 +3,26 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:todo/components/todo_button.dart';
 import 'package:todo/components/todo_textfield.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   final void Function()? onTap;
 
-  const LoginPage({super.key, this.onTap});
+  const RegisterPage({super.key, required this.onTap});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   // text editing controllers
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   // is visible
-  bool isVisisble = true;
+  bool passwordIsVisisble = true;
+  bool confirmPasswordIsVisisble = true;
 
   @override
   Widget build(BuildContext context) {
@@ -31,29 +35,27 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // logo
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "to",
-                      style: GoogleFonts.poppins(
-                        fontSize: 50,
-                        color: Theme.of(context).colorScheme.inversePrimary,
-                      ),
-                    ),
-                    Text(
-                      "do.",
-                      style: GoogleFonts.poppins(
-                        fontSize: 50,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ],
+                // title
+                Text(
+                  "Daftar Akun",
+                  style: GoogleFonts.poppins(
+                    fontSize: 35,
+                    fontWeight: FontWeight.w500,
+                    color: Theme.of(context).colorScheme.inversePrimary,
+                  ),
                 ),
 
                 const SizedBox(height: 20),
+
+                // name textfield
+                ToDoTextField(
+                  controller: nameController,
+                  hintText: 'Nama',
+                  prefixIcon: const Icon(Icons.person_outline),
+                  obsecureText: false,
+                ),
+
+                const SizedBox(height: 10),
 
                 // email textfield
                 ToDoTextField(
@@ -73,29 +75,49 @@ class _LoginPageState extends State<LoginPage> {
                   suffixIcon: IconButton(
                     onPressed: () {
                       setState(() {
-                        isVisisble = !isVisisble;
+                        passwordIsVisisble = !passwordIsVisisble;
                       });
                     },
-                    icon: Icon(isVisisble
+                    icon: Icon(passwordIsVisisble
                         ? Icons.visibility_off_outlined
                         : Icons.visibility_outlined),
                   ),
-                  obsecureText: isVisisble,
+                  obsecureText: passwordIsVisisble,
+                ),
+
+                const SizedBox(height: 10),
+
+                // password textfield
+                ToDoTextField(
+                  controller: confirmPasswordController,
+                  hintText: 'Konfirmasi password',
+                  prefixIcon: const Icon(Icons.lock_outline),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        confirmPasswordIsVisisble = !confirmPasswordIsVisisble;
+                      });
+                    },
+                    icon: Icon(confirmPasswordIsVisisble
+                        ? Icons.visibility_off_outlined
+                        : Icons.visibility_outlined),
+                  ),
+                  obsecureText: confirmPasswordIsVisisble,
                 ),
 
                 const SizedBox(height: 20),
 
                 // sign in button
-                ToDoButton(onPressed: () {}, text: 'Masuk'),
+                ToDoButton(onPressed: () {}, text: "Daftar"),
 
                 const SizedBox(height: 20),
 
-                // Don't have an account yet? sign up now
+                // Already have an account? sign in now
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Belum punya akun?",
+                      "Sudah punya akun?",
                       style: GoogleFonts.poppins(
                         fontWeight: FontWeight.w500,
                         color: Theme.of(context).colorScheme.tertiary,
@@ -105,7 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                     GestureDetector(
                       onTap: widget.onTap,
                       child: Text(
-                        "Daftar sekarang!",
+                        "Masuk sekarang!",
                         style: GoogleFonts.poppins(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.tertiary,
