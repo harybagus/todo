@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:todo/components/todo_button.dart';
 import 'package:todo/components/todo_textfield.dart';
+import 'package:todo/pages/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   final void Function()? onTap;
@@ -19,6 +20,21 @@ class _LoginPageState extends State<LoginPage> {
 
   // is visible
   bool isVisisble = true;
+
+  // login method
+  void login() {
+    /*
+    
+    fill out authentication here..
+    
+    */
+
+    // navigate to home page
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const HomePage()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 20),
 
                 // sign in button
-                ToDoButton(onPressed: () {}, text: 'Masuk'),
+                ToDoButton(onPressed: login, text: 'Masuk'),
 
                 const SizedBox(height: 20),
 
