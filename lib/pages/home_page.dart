@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo/components/todo_drawer_navigation.dart';
 import 'package:todo/components/todo_logo.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,10 +16,6 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.menu),
-        ),
         title: const ToDoLogo(fontSize: 23),
         centerTitle: true,
         actions: [
@@ -28,6 +25,7 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
+      drawer: const ToDoDrawerNavigation(),
     );
   }
 }
