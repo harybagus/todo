@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:todo/components/todo_logo.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,27 +15,11 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        leading: IconButton(onPressed: () {}, icon: const Icon(Icons.menu)),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "to",
-              style: GoogleFonts.poppins(
-                fontSize: 23,
-                color: Theme.of(context).colorScheme.inversePrimary,
-              ),
-            ),
-            Text(
-              "do.",
-              style: GoogleFonts.poppins(
-                fontSize: 23,
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-            ),
-          ],
+        leading: IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.menu),
         ),
+        title: const ToDoLogo(fontSize: 23),
         centerTitle: true,
         actions: [
           IconButton(

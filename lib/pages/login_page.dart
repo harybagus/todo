@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:todo/components/todo_button.dart';
+import 'package:todo/components/todo_logo.dart';
 import 'package:todo/components/todo_textfield.dart';
 import 'package:todo/pages/home_page.dart';
 
@@ -48,26 +49,7 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // logo
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "to",
-                      style: GoogleFonts.poppins(
-                        fontSize: 50,
-                        color: Theme.of(context).colorScheme.inversePrimary,
-                      ),
-                    ),
-                    Text(
-                      "do.",
-                      style: GoogleFonts.poppins(
-                        fontSize: 50,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ],
-                ),
+                const ToDoLogo(fontSize: 50),
 
                 const SizedBox(height: 20),
 
