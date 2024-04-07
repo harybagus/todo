@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:todo/authentication/login_or_register.dart';
 import 'package:todo/components/todo_drawer_tile.dart';
+import 'package:todo/pages/settings_page.dart';
 
 class ToDoDrawerNavigation extends StatefulWidget {
   const ToDoDrawerNavigation({super.key});
@@ -71,7 +72,10 @@ class _ToDoDrawerNavigationState extends State<ToDoDrawerNavigation> {
 
             // settings list tile
             ToDoDrawerTile(
-              onTap: () {},
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SettingsPage()),
+              ),
               icon: Icons.settings_outlined,
               text: 'Pengaturan',
             ),
