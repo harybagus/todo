@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo/components/todo_drawer_navigation.dart';
 import 'package:todo/components/todo_logo.dart';
+import 'package:todo/components/todo_search.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,6 +11,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // text editing controllers
+  final TextEditingController searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,6 +30,22 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       drawer: const ToDoDrawerNavigation(),
+      body: Stack(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              children: [
+                ToDoSearch(
+                  onChanged: (value) {},
+                  controller: searchController,
+                  text: 'Cari tugas',
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
