@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:todo/components/todo_button.dart';
 import 'package:todo/components/todo_logo.dart';
-import 'package:todo/components/todo_textfield.dart';
+import 'package:todo/components/todo_textformfield.dart';
 import 'package:todo/pages/home_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -54,8 +55,11 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 20),
 
                 // email textfield
-                ToDoTextField(
+                ToDoTextFormField(
                   controller: emailController,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.deny(RegExp(r'\s'))
+                  ],
                   hintText: 'Email',
                   prefixIcon: const Icon(Icons.email_outlined),
                   obsecureText: false,
@@ -64,8 +68,11 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 10),
 
                 // password textfield
-                ToDoTextField(
+                ToDoTextFormField(
                   controller: passwordController,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.deny(RegExp(r'\s'))
+                  ],
                   hintText: 'Password',
                   prefixIcon: const Icon(Icons.lock_outline),
                   suffixIcon: IconButton(

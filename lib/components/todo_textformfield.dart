@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-class ToDoTextField extends StatelessWidget {
+class ToDoTextFormField extends StatelessWidget {
   final TextEditingController controller;
+  final List<TextInputFormatter>? inputFormatters;
   final String hintText;
   final Icon prefixIcon;
   final Widget? suffixIcon;
   final bool obsecureText;
 
-  const ToDoTextField({
+  const ToDoTextFormField({
     super.key,
     required this.controller,
+    this.inputFormatters,
     required this.hintText,
     required this.prefixIcon,
     this.suffixIcon,
@@ -18,8 +21,9 @@ class ToDoTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: controller,
+      inputFormatters: inputFormatters,
       obscureText: obsecureText,
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
