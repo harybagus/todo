@@ -5,6 +5,7 @@ class Account {
   String? password;
   String? photoName;
 
+  // create mapping for account
   accountMap() {
     var mapping = <String, dynamic>{};
 

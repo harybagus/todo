@@ -108,6 +108,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
     var existingEmail = await authenticationService.readAccountByEmail(email);
 
+    // email already exists
     if (existingEmail.isNotEmpty) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
@@ -128,8 +129,10 @@ class _RegisterPageState extends State<RegisterPage> {
     account.password = password;
     account.photoName = 'default';
 
+    // create account
     var createAccount = await authenticationService.createAccount(account);
 
+    // create account successfully
     if (createAccount > 0) {
       nameController.clear();
       emailController.clear();

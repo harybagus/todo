@@ -3,8 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:todo/components/todo_button.dart';
 import 'package:todo/components/todo_logo.dart';
+import 'package:todo/components/todo_snackbar.dart';
 import 'package:todo/components/todo_textformfield.dart';
+import 'package:todo/models/account.dart';
 import 'package:todo/pages/home_page.dart';
+import 'package:todo/services/authentication_service.dart';
 
 class LoginPage extends StatefulWidget {
   final void Function()? onTap;
@@ -23,19 +26,100 @@ class _LoginPageState extends State<LoginPage> {
   // is visible
   bool isVisisble = true;
 
-  // login method
-  void login() {
-    /*
-    
-    fill out authentication here..
-    
-    */
+  final account = Account();
+  final authenticationService = AuthenticationService();
 
-    // navigate to home page
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const HomePage()),
-    );
+  // login method
+  login() async {
+    String email = emailController.text;
+    String password = passwordController.text;
+
+    // if all is empty
+    if (email.isEmpty && password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+        Colors.red,
+        'Email dan password harus diisi',
+      ));
+
+      return;
+    }
+
+    // if one of them is empty
+    if (email.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+        Colors.red,
+        'Email harus diisi',
+      ));
+
+      return;
+    } else if (password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+        Colors.red,
+        'Password harus diisi',
+      ));
+
+      return;
+    }
+
+    var existingAccount = await authenticationService.readAccountByEmail(email);
+
+    dynamic accountPassword;
+    dynamic accountId;
+
+    existingAccount.forEach((account) {
+      setState(() {
+        accountPassword = account['password'];
+        accountId = account['id'];
+      });
+    });
+
+    // email not registered
+    if (existingAccount.isEmpty) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+          Colors.red,
+          'Email belum terdaftar',
+        ));
+      }
+
+      emailController.clear();
+      passwordController.clear();
+
+      return;
+    }
+
+    // wrong password
+    if (accountPassword != password) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+          Colors.red,
+          'Password salah',
+        ));
+      }
+
+      passwordController.clear();
+
+      return;
+    }
+
+    // login successfully
+    if (existingAccount.isNotEmpty) {
+      emailController.clear();
+      passwordController.clear();
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+          Colors.green,
+          'Berhasil masuk',
+        ));
+
+        // navigate to home page
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage(id: accountId)),
+        );
+      }
+    }
   }
 
   @override
