@@ -3,7 +3,7 @@ class Account {
   String? name;
   String? email;
   String? password;
-  String? photoName;
+  String? imageName;
 
   // create mapping for account
   accountMap() {
@@ -13,7 +13,7 @@ class Account {
     mapping['name'] = name;
     mapping['email'] = email;
     mapping['password'] = password;
-    mapping['photoName'] = photoName;
+    mapping['imageName'] = imageName;
 
     return mapping;
   }

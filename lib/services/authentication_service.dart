@@ -17,4 +17,13 @@ class AuthenticationService {
   readAccountByEmail(String email) async {
     return await _repository.readDataByColumnName('account', 'email', email);
   }
+
+  // read account by id
+  readAccountById(int id) async {
+    return await _repository.readDataByColumnName('account', 'id', id);
+  }
+
+  updateAccount(Account account) async {
+    return await _repository.updateData('account', account.accountMap());
+  }
 }

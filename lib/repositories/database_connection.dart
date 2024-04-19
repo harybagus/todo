@@ -18,7 +18,7 @@ class DatabaseConnection {
 
   _onCreatingDatabase(Database database, int version) async {
     await database.execute(
-      "CREATE TABLE account(id INTEGER PRIMARY KEY, name TEXT, email TEXT, password TEXT, photoName TEXT)",
+      "CREATE TABLE account(id INTEGER PRIMARY KEY, name TEXT, email TEXT, password TEXT, imageName TEXT)",
     );
   }
 }

@@ -36,6 +36,7 @@ class _LoginPageState extends State<LoginPage> {
 
     // if all is empty
     if (email.isEmpty && password.isEmpty) {
+      // error message
       ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
         Colors.red,
         'Email dan password harus diisi',
@@ -46,6 +47,7 @@ class _LoginPageState extends State<LoginPage> {
 
     // if one of them is empty
     if (email.isEmpty) {
+      // error message
       ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
         Colors.red,
         'Email harus diisi',
@@ -53,6 +55,7 @@ class _LoginPageState extends State<LoginPage> {
 
       return;
     } else if (password.isEmpty) {
+      // error message
       ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
         Colors.red,
         'Password harus diisi',
@@ -76,12 +79,14 @@ class _LoginPageState extends State<LoginPage> {
     // email not registered
     if (existingAccount.isEmpty) {
       if (mounted) {
+        // error message
         ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
           Colors.red,
           'Email belum terdaftar',
         ));
       }
 
+      // delete text in controller
       emailController.clear();
       passwordController.clear();
 
@@ -91,6 +96,7 @@ class _LoginPageState extends State<LoginPage> {
     // wrong password
     if (accountPassword != password) {
       if (mounted) {
+        // error message
         ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
           Colors.red,
           'Password salah',
@@ -104,10 +110,12 @@ class _LoginPageState extends State<LoginPage> {
 
     // login successfully
     if (existingAccount.isNotEmpty) {
+      // delete text in controller
       emailController.clear();
       passwordController.clear();
 
       if (mounted) {
+        // success message
         ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
           Colors.green,
           'Berhasil masuk',
@@ -147,6 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                   hintText: 'Email',
                   prefixIcon: const Icon(Icons.email_outlined),
                   obsecureText: false,
+                  readOnly: false,
                 ),
 
                 const SizedBox(height: 10),
@@ -170,12 +179,17 @@ class _LoginPageState extends State<LoginPage> {
                         : Icons.visibility_outlined),
                   ),
                   obsecureText: isVisisble,
+                  readOnly: false,
                 ),
 
                 const SizedBox(height: 20),
 
                 // sign in button
-                ToDoButton(onPressed: login, text: 'Masuk'),
+                ToDoButton(
+                  onPressed: login,
+                  color: Theme.of(context).colorScheme.primary,
+                  text: 'Masuk',
+                ),
 
                 const SizedBox(height: 20),
 
@@ -184,7 +198,7 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Belum punya akun?",
+                      'Belum punya akun?',
                       style: GoogleFonts.poppins(
                         fontWeight: FontWeight.w500,
                         color: Theme.of(context).colorScheme.tertiary,
@@ -194,7 +208,7 @@ class _LoginPageState extends State<LoginPage> {
                     GestureDetector(
                       onTap: widget.onTap,
                       child: Text(
-                        "Daftar sekarang!",
+                        'Daftar sekarang!',
                         style: GoogleFonts.poppins(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.tertiary,

@@ -8,6 +8,7 @@ class ToDoTextFormField extends StatelessWidget {
   final Icon prefixIcon;
   final Widget? suffixIcon;
   final bool obsecureText;
+  final bool readOnly;
 
   const ToDoTextFormField({
     super.key,
@@ -17,6 +18,7 @@ class ToDoTextFormField extends StatelessWidget {
     required this.prefixIcon,
     this.suffixIcon,
     required this.obsecureText,
+    required this.readOnly,
   });
 
   @override
@@ -25,6 +27,7 @@ class ToDoTextFormField extends StatelessWidget {
       controller: controller,
       inputFormatters: inputFormatters,
       obscureText: obsecureText,
+      readOnly: readOnly,
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
           borderSide:

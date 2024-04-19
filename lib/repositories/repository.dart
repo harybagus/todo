@@ -29,13 +29,24 @@ class Repository {
   readDataByColumnName(
     String table,
     String columnName,
-    String columnValue,
+    dynamic columnValue,
   ) async {
     var connection = await database;
     return await connection!.query(
       table,
       where: '$columnName = ?',
       whereArgs: [columnValue],
+    );
+  }
+
+  // update data
+  updateData(String table, dynamic data) async {
+    var connection = await database;
+    return await connection!.update(
+      table,
+      data,
+      where: 'id = ?',
+      whereArgs: [data['id']],
     );
   }
 }

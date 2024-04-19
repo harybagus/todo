@@ -6,7 +6,9 @@ import 'package:todo/pages/home_page.dart';
 import 'package:todo/themes/theme_provider.dart';
 
 class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});
+  final int id;
+
+  const SettingsPage({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class SettingsPage extends StatelessWidget {
         leading: IconButton(
           onPressed: () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const HomePage()),
+            MaterialPageRoute(builder: (context) => HomePage(id: id)),
           ),
           icon: const Icon(Icons.arrow_back),
         ),
@@ -40,7 +42,7 @@ class SettingsPage extends StatelessWidget {
                 children: [
                   // dark mode
                   Text(
-                    "Dark Mode",
+                    'Dark Mode',
                     style: GoogleFonts.poppins(
                       fontWeight: FontWeight.bold,
                       fontSize: 17,

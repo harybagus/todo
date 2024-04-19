@@ -44,6 +44,7 @@ class _RegisterPageState extends State<RegisterPage> {
         email.isEmpty &&
         password.isEmpty &&
         confirmPassword.isEmpty) {
+      // error message
       ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
         Colors.red,
         'Nama, email, password dan konfirmasi password harus diisi',
@@ -54,6 +55,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
     // is one of them is empty
     if (name.isEmpty) {
+      // error message
       ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
         Colors.red,
         'Nama harus diisi',
@@ -61,6 +63,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
       return;
     } else if (email.isEmpty) {
+      // error message
       ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
         Colors.red,
         'Email harus diisi',
@@ -68,6 +71,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
       return;
     } else if (password.isEmpty) {
+      // error message
       ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
         Colors.red,
         'Password harus diisi',
@@ -75,6 +79,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
       return;
     } else if (confirmPassword.isEmpty) {
+      // error message
       ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
         Colors.red,
         'Konfirmasi password harus diisi',
@@ -85,6 +90,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
     // password less than 8 characters
     if (password.length < 8) {
+      // error message
       ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
         Colors.red,
         'Password minimal harus 8 karakter',
@@ -95,11 +101,13 @@ class _RegisterPageState extends State<RegisterPage> {
 
     // password and confirm password are not the same
     if (password != confirmPassword) {
+      // error message
       ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
         Colors.red,
         'Password dan konfirmasi password tidak sama',
       ));
 
+      // delete text in controller
       passwordController.clear();
       confirmPasswordController.clear();
 
@@ -111,12 +119,14 @@ class _RegisterPageState extends State<RegisterPage> {
     // email already exists
     if (existingEmail.isNotEmpty) {
       if (mounted) {
+        // error message
         ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
           Colors.red,
           'Email sudah terdaftar',
         ));
       }
 
+      // delete text in controller
       emailController.clear();
       passwordController.clear();
       confirmPasswordController.clear();
@@ -124,22 +134,25 @@ class _RegisterPageState extends State<RegisterPage> {
       return;
     }
 
+    // account data
     account.name = name;
     account.email = email;
     account.password = password;
-    account.photoName = 'default';
+    account.imageName = 'null';
 
     // create account
     var createAccount = await authenticationService.createAccount(account);
 
     // create account successfully
     if (createAccount > 0) {
+      // delete text in controller
       nameController.clear();
       emailController.clear();
       passwordController.clear();
       confirmPasswordController.clear();
 
       if (mounted) {
+        // success message
         ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
           Colors.green,
           'Berhasil mendaftar, silakan masuk',
@@ -167,7 +180,7 @@ class _RegisterPageState extends State<RegisterPage> {
               children: [
                 // title
                 Text(
-                  "Daftar Akun",
+                  'Daftar Akun',
                   style: GoogleFonts.poppins(
                     fontSize: 35,
                     fontWeight: FontWeight.w500,
@@ -183,6 +196,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   hintText: 'Nama',
                   prefixIcon: const Icon(Icons.person_outline),
                   obsecureText: false,
+                  readOnly: false,
                 ),
 
                 const SizedBox(height: 10),
@@ -196,6 +210,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   hintText: 'Email',
                   prefixIcon: const Icon(Icons.email_outlined),
                   obsecureText: false,
+                  readOnly: false,
                 ),
 
                 const SizedBox(height: 10),
@@ -219,6 +234,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         : Icons.visibility_outlined),
                   ),
                   obsecureText: passwordIsVisisble,
+                  readOnly: false,
                 ),
 
                 const SizedBox(height: 10),
@@ -242,6 +258,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         : Icons.visibility_outlined),
                   ),
                   obsecureText: confirmPasswordIsVisisble,
+                  readOnly: false,
                 ),
 
                 const SizedBox(height: 20),
@@ -249,7 +266,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 // sign in button
                 ToDoButton(
                   onPressed: () => register(),
-                  text: "Daftar",
+                  color: Theme.of(context).colorScheme.primary,
+                  text: 'Daftar',
                 ),
 
                 const SizedBox(height: 20),
@@ -259,7 +277,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Sudah punya akun?",
+                      'Sudah punya akun?',
                       style: GoogleFonts.poppins(
                         fontWeight: FontWeight.w500,
                         color: Theme.of(context).colorScheme.tertiary,
@@ -269,7 +287,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     GestureDetector(
                       onTap: widget.onTap,
                       child: Text(
-                        "Masuk sekarang!",
+                        'Masuk sekarang!',
                         style: GoogleFonts.poppins(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.tertiary,

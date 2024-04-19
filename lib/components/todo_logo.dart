@@ -12,14 +12,14 @@ class ToDoLogo extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "to",
+          'to',
           style: GoogleFonts.poppins(
             fontSize: fontSize,
             color: Theme.of(context).colorScheme.inversePrimary,
           ),
         ),
         Text(
-          "do.",
+          'do.',
           style: GoogleFonts.poppins(
             fontSize: fontSize,
             fontWeight: FontWeight.bold,

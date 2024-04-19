@@ -2,16 +2,50 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:todo/authentication/login_or_register.dart';
 import 'package:todo/components/todo_drawer_tile.dart';
+import 'package:todo/components/todo_snackbar.dart';
+import 'package:todo/models/account.dart';
+import 'package:todo/pages/profile_page.dart';
 import 'package:todo/pages/settings_page.dart';
+import 'package:todo/services/authentication_service.dart';
 
 class ToDoDrawerNavigation extends StatefulWidget {
-  const ToDoDrawerNavigation({super.key});
+  final int id;
+
+  const ToDoDrawerNavigation({super.key, required this.id});
 
   @override
   State<ToDoDrawerNavigation> createState() => _ToDoDrawerNavigationState();
 }
 
 class _ToDoDrawerNavigationState extends State<ToDoDrawerNavigation> {
+  final account = Account();
+  final authenticationService = AuthenticationService();
+
+  // account
+  String accountName = '';
+  String accountEmail = '';
+  String accountImageName = '';
+
+  // get account
+  getAccount() async {
+    // get account by id
+    dynamic account = await authenticationService.readAccountById(widget.id);
+
+    account.forEach((account) {
+      setState(() {
+        accountName = account['name'];
+        accountEmail = account['email'];
+        accountImageName = account['imageName'];
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getAccount();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -22,14 +56,36 @@ class _ToDoDrawerNavigationState extends State<ToDoDrawerNavigation> {
           children: [
             // user profile
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ProfilePage(id: widget.id)),
+                );
+              },
               child: UserAccountsDrawerHeader(
-                currentAccountPicture: const CircleAvatar(
-                  backgroundImage:
-                      NetworkImage('https://source.unsplash.com/500x500?man'),
+                currentAccountPicture: CircleAvatar(
+                  radius: 60,
+                  backgroundImage: accountImageName != ''
+                      ? accountImageName == 'null'
+                          ? null
+                          : AssetImage('lib/images/$accountImageName')
+                      : null,
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  child: accountImageName == 'null'
+                      ? accountName != ''
+                          ? Text(
+                              accountName[0].toUpperCase(),
+                              style: GoogleFonts.poppins(
+                                fontSize: 40,
+                                color: Theme.of(context).colorScheme.background,
+                              ),
+                            )
+                          : null
+                      : null,
                 ),
                 accountName: Text(
-                  "Bagus Hary",
+                  accountName,
                   style: GoogleFonts.poppins(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
@@ -37,7 +93,7 @@ class _ToDoDrawerNavigationState extends State<ToDoDrawerNavigation> {
                   ),
                 ),
                 accountEmail: Text(
-                  "bagusbanget@gmail.com",
+                  accountEmail,
                   style: GoogleFonts.poppins(
                     fontSize: 14,
                     color: Theme.of(context).colorScheme.inversePrimary,
@@ -56,25 +112,12 @@ class _ToDoDrawerNavigationState extends State<ToDoDrawerNavigation> {
               text: 'Beranda',
             ),
 
-            // all categories list tile
-            ToDoDrawerTile(
-              onTap: () {},
-              icon: Icons.edit_note_outlined,
-              text: 'Semua kategori',
-            ),
-
-            // all todos list tile
-            ToDoDrawerTile(
-              onTap: () {},
-              icon: Icons.edit_outlined,
-              text: 'Semua tugas',
-            ),
-
             // settings list tile
             ToDoDrawerTile(
               onTap: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const SettingsPage()),
+                MaterialPageRoute(
+                    builder: (context) => SettingsPage(id: widget.id)),
               ),
               icon: Icons.settings_outlined,
               text: 'Pengaturan',
@@ -84,11 +127,18 @@ class _ToDoDrawerNavigationState extends State<ToDoDrawerNavigation> {
 
             // logout
             ToDoDrawerTile(
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const LoginOrRegister()),
-              ),
+              onTap: () {
+                // Message
+                ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+                  Colors.green,
+                  'Berhasil keluar, semangat mengerjakan semua tugas 💪',
+                ));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const LoginOrRegister()),
+                );
+              },
               icon: Icons.logout,
               text: 'Keluar',
             ),

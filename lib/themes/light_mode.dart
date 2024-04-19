@@ -7,5 +7,6 @@ ThemeData lightMode = ThemeData(
     secondary: Colors.white,
     tertiary: Color.fromRGBO(125, 125, 125, 1),
     inversePrimary: Colors.black,
+    surface: Color.fromRGBO(150, 150, 150, 1),
   ),
 );

@@ -8,9 +8,9 @@ import 'package:todo/components/todo_month.dart';
 import 'package:todo/components/todo_search.dart';
 
 class HomePage extends StatefulWidget {
-  final int? id;
+  final int id;
 
-  const HomePage({super.key, this.id});
+  const HomePage({super.key, required this.id});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      drawer: const ToDoDrawerNavigation(),
+      drawer: ToDoDrawerNavigation(id: widget.id),
       body: Stack(
         children: [
           Container(
@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
 
                     // date
                     Text(
-                      "${today.day} ${month(today)} ${today.year}",
+                      '${today.day} ${month(today)} ${today.year}',
                       style: GoogleFonts.poppins(
                         fontWeight: FontWeight.w500,
                         color: Theme.of(context).colorScheme.tertiary,
@@ -106,7 +106,7 @@ class _HomePageState extends State<HomePage> {
 
                 // categories
                 Text(
-                  "Kategori",
+                  'Kategori',
                   style: GoogleFonts.poppins(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -117,7 +117,7 @@ class _HomePageState extends State<HomePage> {
 
                 // todos
                 Text(
-                  "Tugas",
+                  'Tugas',
                   style: GoogleFonts.poppins(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
