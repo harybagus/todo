@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ToDoButton extends StatelessWidget {
+class TodoButton extends StatelessWidget {
   final Function()? onPressed;
   final Color color;
   final String text;
 
-  const ToDoButton({
+  const TodoButton({
     super.key,
     required this.onPressed,
     required this.color,
@@ -18,6 +18,7 @@ class ToDoButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
+        elevation: 0,
         backgroundColor: color,
         foregroundColor: Colors.white,
         fixedSize: Size(MediaQuery.sizeOf(context).width, 65),

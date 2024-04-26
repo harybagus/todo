@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ToDoLogo extends StatelessWidget {
+class TodoLogo extends StatelessWidget {
   final double fontSize;
 
-  const ToDoLogo({super.key, required this.fontSize});
+  const TodoLogo({super.key, required this.fontSize});
 
   @override
   Widget build(BuildContext context) {

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-SnackBar toDoSnackBar(Color color, String text) {
+SnackBar todoSnackBar(Color color, double marginBottom, String text) {
   return SnackBar(
     backgroundColor: color,
-    margin: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+    margin: EdgeInsets.only(left: 20, right: 20, bottom: marginBottom),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     content: Text(
       text,

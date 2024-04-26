@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class TodoImage extends StatelessWidget {
+class TodoColor extends StatelessWidget {
   final Function() onTap;
   final Color color;
-  final Widget child;
+  final Widget? child;
 
-  const TodoImage({
+  const TodoColor({
     super.key,
     required this.onTap,
     required this.color,
@@ -17,12 +17,11 @@ class TodoImage extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        width: 43,
+        height: 43,
         decoration: BoxDecoration(
+          color: color,
           borderRadius: BorderRadius.circular(5),
-          border: Border.all(
-            width: 5,
-            color: color,
-          ),
         ),
         child: child,
       ),

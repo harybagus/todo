@@ -3,22 +3,20 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:todo/authentication/login_or_register.dart';
 import 'package:todo/components/todo_drawer_tile.dart';
 import 'package:todo/components/todo_snackbar.dart';
-import 'package:todo/models/account.dart';
 import 'package:todo/pages/profile_page.dart';
 import 'package:todo/pages/settings_page.dart';
 import 'package:todo/services/authentication_service.dart';
 
-class ToDoDrawerNavigation extends StatefulWidget {
+class TodoDrawerNavigation extends StatefulWidget {
   final int id;
 
-  const ToDoDrawerNavigation({super.key, required this.id});
+  const TodoDrawerNavigation({super.key, required this.id});
 
   @override
-  State<ToDoDrawerNavigation> createState() => _ToDoDrawerNavigationState();
+  State<TodoDrawerNavigation> createState() => _TodoDrawerNavigationState();
 }
 
-class _ToDoDrawerNavigationState extends State<ToDoDrawerNavigation> {
-  final account = Account();
+class _TodoDrawerNavigationState extends State<TodoDrawerNavigation> {
   final authenticationService = AuthenticationService();
 
   // account
@@ -49,6 +47,7 @@ class _ToDoDrawerNavigationState extends State<ToDoDrawerNavigation> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      elevation: 0,
       backgroundColor: Theme.of(context).colorScheme.background,
       child: Padding(
         padding: const EdgeInsets.only(left: 20, top: 0, right: 20, bottom: 10),
@@ -106,14 +105,14 @@ class _ToDoDrawerNavigationState extends State<ToDoDrawerNavigation> {
             ),
 
             // home list tile
-            ToDoDrawerTile(
+            TodoDrawerTile(
               onTap: () => Navigator.pop(context),
               icon: Icons.home_outlined,
               text: 'Beranda',
             ),
 
             // settings list tile
-            ToDoDrawerTile(
+            TodoDrawerTile(
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -126,11 +125,12 @@ class _ToDoDrawerNavigationState extends State<ToDoDrawerNavigation> {
             const Spacer(),
 
             // logout
-            ToDoDrawerTile(
+            TodoDrawerTile(
               onTap: () {
                 // Message
-                ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(todoSnackBar(
                   Colors.green,
+                  20,
                   'Berhasil keluar, semangat mengerjakan semua tugas 💪',
                 ));
                 Navigator.push(

@@ -34,30 +34,33 @@ class _LoginPageState extends State<LoginPage> {
     String email = emailController.text;
     String password = passwordController.text;
 
-    // if all is empty
+    // if all are empty
     if (email.isEmpty && password.isEmpty) {
       // error message
-      ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(todoSnackBar(
         Colors.red,
+        20,
         'Email dan password harus diisi',
       ));
 
       return;
     }
 
-    // if one of them is empty
+    // if one of them are empty
     if (email.isEmpty) {
       // error message
-      ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(todoSnackBar(
         Colors.red,
+        20,
         'Email harus diisi',
       ));
 
       return;
     } else if (password.isEmpty) {
       // error message
-      ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(todoSnackBar(
         Colors.red,
+        20,
         'Password harus diisi',
       ));
 
@@ -80,8 +83,9 @@ class _LoginPageState extends State<LoginPage> {
     if (existingAccount.isEmpty) {
       if (mounted) {
         // error message
-        ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(todoSnackBar(
           Colors.red,
+          20,
           'Email belum terdaftar',
         ));
       }
@@ -97,8 +101,9 @@ class _LoginPageState extends State<LoginPage> {
     if (accountPassword != password) {
       if (mounted) {
         // error message
-        ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(todoSnackBar(
           Colors.red,
+          20,
           'Password salah',
         ));
       }
@@ -116,8 +121,9 @@ class _LoginPageState extends State<LoginPage> {
 
       if (mounted) {
         // success message
-        ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(todoSnackBar(
           Colors.green,
+          20,
           'Berhasil masuk',
         ));
 
@@ -142,26 +148,25 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // logo
-                const ToDoLogo(fontSize: 50),
+                const TodoLogo(fontSize: 50),
 
                 const SizedBox(height: 20),
 
                 // email textfield
-                ToDoTextFormField(
+                TodoTextFormField(
                   controller: emailController,
                   inputFormatters: [
                     FilteringTextInputFormatter.deny(RegExp(r'\s'))
                   ],
                   hintText: 'Email',
                   prefixIcon: const Icon(Icons.email_outlined),
-                  obsecureText: false,
-                  readOnly: false,
+                  maxLines: 1,
                 ),
 
                 const SizedBox(height: 10),
 
                 // password textfield
-                ToDoTextFormField(
+                TodoTextFormField(
                   controller: passwordController,
                   inputFormatters: [
                     FilteringTextInputFormatter.deny(RegExp(r'\s'))
@@ -179,13 +184,13 @@ class _LoginPageState extends State<LoginPage> {
                         : Icons.visibility_outlined),
                   ),
                   obsecureText: isVisisble,
-                  readOnly: false,
+                  maxLines: 1,
                 ),
 
                 const SizedBox(height: 20),
 
                 // sign in button
-                ToDoButton(
+                TodoButton(
                   onPressed: login,
                   color: Theme.of(context).colorScheme.primary,
                   text: 'Masuk',

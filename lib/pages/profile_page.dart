@@ -81,8 +81,9 @@ class _ProfilePageState extends State<ProfilePage> {
 
         if (mounted) {
           // success message
-          ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(todoSnackBar(
             Colors.green,
+            660,
             'Berhasil mengubah profil',
           ));
         }
@@ -96,31 +97,34 @@ class _ProfilePageState extends State<ProfilePage> {
     String newPassword = newPasswordController.text;
     String confirmNewPassword = confirmNewPasswordController.text;
 
-    // not all empty
+    // not all of them are empty
     if (currentPassword.isNotEmpty ||
         newPassword.isNotEmpty ||
         confirmNewPassword.isNotEmpty) {
-      // is one of them is empty
+      // is one of them are empty
       if (currentPassword.isEmpty) {
         // error message
-        ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(todoSnackBar(
           Colors.red,
+          660,
           'Password saat ini harus diisi',
         ));
 
         return;
       } else if (newPassword.isEmpty) {
         // error message
-        ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(todoSnackBar(
           Colors.red,
+          660,
           'Password baru harus diisi',
         ));
 
         return;
       } else if (confirmNewPassword.isEmpty) {
         // error message
-        ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(todoSnackBar(
           Colors.red,
+          660,
           'Konfirmasi password baru harus diisi',
         ));
 
@@ -135,8 +139,9 @@ class _ProfilePageState extends State<ProfilePage> {
         confirmNewPasswordController.clear();
 
         // error message
-        ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(todoSnackBar(
           Colors.red,
+          660,
           'Password saat ini salah',
         ));
 
@@ -149,8 +154,9 @@ class _ProfilePageState extends State<ProfilePage> {
         confirmNewPasswordController.clear();
 
         // error message
-        ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(todoSnackBar(
           Colors.red,
+          660,
           'Password baru minimal harus 8 karakter',
         ));
 
@@ -164,8 +170,9 @@ class _ProfilePageState extends State<ProfilePage> {
         confirmNewPasswordController.clear();
 
         // error message
-        ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(todoSnackBar(
           Colors.red,
+          660,
           'Password baru dan konfirmasi password baru tidak sama',
         ));
 
@@ -191,8 +198,9 @@ class _ProfilePageState extends State<ProfilePage> {
 
         if (mounted) {
           // success message
-          ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(todoSnackBar(
             Colors.green,
+            660,
             'Berhasil mengubah password, silakan masuk kembali',
           ));
 
@@ -226,8 +234,9 @@ class _ProfilePageState extends State<ProfilePage> {
     if (changeImage > 0) {
       if (mounted) {
         // success message
-        ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(todoSnackBar(
           Colors.green,
+          660,
           imageName == 'null'
               ? 'Berhasil menghapus gambar'
               : 'Berhasil mengubah gambar',
@@ -239,6 +248,8 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
+
+    // call the function
     getAccount();
   }
 
@@ -335,8 +346,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       showDialog(
                         context: context,
                         builder: (builder) => AlertDialog(
+                          elevation: 0,
                           backgroundColor:
-                              Theme.of(context).colorScheme.surface,
+                              Theme.of(context).colorScheme.secondary,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15)),
                           title: Center(
@@ -356,7 +368,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    ToDoImage(
+                                    TodoImage(
                                       onTap: () {
                                         Navigator.pop(context);
                                         changeImage('man.jpg');
@@ -374,7 +386,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         width: 105,
                                       ),
                                     ),
-                                    ToDoImage(
+                                    TodoImage(
                                       onTap: () {
                                         Navigator.pop(context);
                                         changeImage('woman.jpg');
@@ -402,7 +414,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    ToDoImage(
+                                    TodoImage(
                                       onTap: () {
                                         Navigator.pop(context);
                                         changeImage('cat.jpg');
@@ -420,7 +432,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         width: 105,
                                       ),
                                     ),
-                                    ToDoImage(
+                                    TodoImage(
                                       onTap: () {
                                         Navigator.pop(context);
                                         changeImage('avocado.jpg');
@@ -448,7 +460,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    ToDoImage(
+                                    TodoImage(
                                       onTap: () {
                                         Navigator.pop(context);
                                         changeImage('astronaut.jpg');
@@ -466,7 +478,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         width: 105,
                                       ),
                                     ),
-                                    ToDoImage(
+                                    TodoImage(
                                       onTap: () {
                                         Navigator.pop(context);
                                         changeImage('rabbit.jpg');
@@ -494,7 +506,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 // delete image button
                                 accountImageName == 'null'
                                     ? const SizedBox()
-                                    : ToDoButton(
+                                    : TodoButton(
                                         onPressed: () {
                                           Navigator.pop(context);
                                           changeImage('null');
@@ -591,7 +603,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     const SizedBox(height: 10),
 
                     // name or current password
-                    ToDoTextFormField(
+                    TodoTextFormField(
                       controller: changePasswordIsPressed
                           ? currentPasswordController
                           : nameController,
@@ -620,13 +632,13 @@ class _ProfilePageState extends State<ProfilePage> {
                       obsecureText: changePasswordIsPressed
                           ? currentPasswordIsVisisble
                           : false,
-                      readOnly: false,
+                      maxLines: 1,
                     ),
 
                     const SizedBox(height: 20),
 
                     // email or new password
-                    ToDoTextFormField(
+                    TodoTextFormField(
                       controller: changePasswordIsPressed
                           ? newPasswordController
                           : TextEditingController(),
@@ -656,34 +668,36 @@ class _ProfilePageState extends State<ProfilePage> {
                           ? newPasswordIsVisisble
                           : false,
                       readOnly: changePasswordIsPressed ? false : true,
+                      maxLines: 1,
                     ),
 
                     const SizedBox(height: 20),
 
                     // confirm password
-                    changePasswordIsPressed
-                        ? ToDoTextFormField(
-                            controller: confirmNewPasswordController,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.deny(RegExp(r'\s'))
-                            ],
-                            hintText: 'Konfirmasi password baru',
-                            prefixIcon: const Icon(Icons.password_outlined),
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  confirmNewPasswordIsVisisble =
-                                      !confirmNewPasswordIsVisisble;
-                                });
-                              },
-                              icon: Icon(confirmNewPasswordIsVisisble
-                                  ? Icons.visibility_off_outlined
-                                  : Icons.visibility_outlined),
-                            ),
-                            obsecureText: confirmNewPasswordIsVisisble,
-                            readOnly: false,
-                          )
-                        : const SizedBox(),
+                    if (changePasswordIsPressed)
+                      TodoTextFormField(
+                        controller: confirmNewPasswordController,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.deny(RegExp(r'\s'))
+                        ],
+                        hintText: 'Konfirmasi password baru',
+                        prefixIcon: const Icon(Icons.password_outlined),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              confirmNewPasswordIsVisisble =
+                                  !confirmNewPasswordIsVisisble;
+                            });
+                          },
+                          icon: Icon(confirmNewPasswordIsVisisble
+                              ? Icons.visibility_off_outlined
+                              : Icons.visibility_outlined),
+                        ),
+                        obsecureText: confirmNewPasswordIsVisisble,
+                        maxLines: 1,
+                      )
+                    else
+                      const SizedBox(),
 
                     changePasswordIsPressed
                         ? const SizedBox(height: 20)
@@ -720,7 +734,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         // cancle button
                         SizedBox(
                           width: MediaQuery.sizeOf(context).width / 2.35,
-                          child: ToDoButton(
+                          child: TodoButton(
                             onPressed: () {
                               // delete text in controller
                               nameController.clear();
@@ -738,7 +752,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         // save button
                         SizedBox(
                           width: MediaQuery.sizeOf(context).width / 2.35,
-                          child: ToDoButton(
+                          child: TodoButton(
                             onPressed: () {
                               changePasswordIsPressed
                                   ? changePassword()

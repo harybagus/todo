@@ -36,7 +36,14 @@ class Repository {
       table,
       where: '$columnName = ?',
       whereArgs: [columnValue],
+      orderBy: 'id DESC',
     );
+  }
+
+  // read data by joining tables
+  readDataByJoiningTables(String sql, List<dynamic> list) async {
+    var connection = await database;
+    return await connection!.rawQuery(sql, list);
   }
 
   // update data
@@ -48,5 +55,11 @@ class Repository {
       where: 'id = ?',
       whereArgs: [data['id']],
     );
+  }
+
+  // delete data
+  deleteData(String table, int id) async {
+    var connection = await database;
+    return await connection!.rawDelete('DELETE FROM $table WHERE id = $id');
   }
 }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ToDoSearch extends StatelessWidget {
+class TodoSearch extends StatelessWidget {
   final Function(String) onChanged;
   final TextEditingController controller;
   final String text;
 
-  const ToDoSearch({
+  const TodoSearch({
     super.key,
     required this.onChanged,
     required this.controller,

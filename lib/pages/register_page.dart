@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -39,50 +40,67 @@ class _RegisterPageState extends State<RegisterPage> {
     String password = passwordController.text;
     String confirmPassword = confirmPasswordController.text;
 
-    // if all is empty
+    // if all are empty
     if (name.isEmpty &&
         email.isEmpty &&
         password.isEmpty &&
         confirmPassword.isEmpty) {
       // error message
-      ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(todoSnackBar(
         Colors.red,
+        20,
         'Nama, email, password dan konfirmasi password harus diisi',
       ));
 
       return;
     }
 
-    // is one of them is empty
+    // if one of them are empty
     if (name.isEmpty) {
       // error message
-      ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(todoSnackBar(
         Colors.red,
+        20,
         'Nama harus diisi',
       ));
 
       return;
     } else if (email.isEmpty) {
       // error message
-      ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(todoSnackBar(
         Colors.red,
+        20,
         'Email harus diisi',
       ));
 
       return;
     } else if (password.isEmpty) {
       // error message
-      ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(todoSnackBar(
         Colors.red,
+        20,
         'Password harus diisi',
       ));
 
       return;
     } else if (confirmPassword.isEmpty) {
       // error message
-      ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(todoSnackBar(
         Colors.red,
+        20,
         'Konfirmasi password harus diisi',
+      ));
+
+      return;
+    }
+
+    // email validation
+    if (!EmailValidator.validate(email)) {
+      // error message
+      ScaffoldMessenger.of(context).showSnackBar(todoSnackBar(
+        Colors.red,
+        20,
+        'Email tidak valid',
       ));
 
       return;
@@ -91,8 +109,9 @@ class _RegisterPageState extends State<RegisterPage> {
     // password less than 8 characters
     if (password.length < 8) {
       // error message
-      ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(todoSnackBar(
         Colors.red,
+        20,
         'Password minimal harus 8 karakter',
       ));
 
@@ -102,8 +121,9 @@ class _RegisterPageState extends State<RegisterPage> {
     // password and confirm password are not the same
     if (password != confirmPassword) {
       // error message
-      ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(todoSnackBar(
         Colors.red,
+        20,
         'Password dan konfirmasi password tidak sama',
       ));
 
@@ -120,8 +140,9 @@ class _RegisterPageState extends State<RegisterPage> {
     if (existingEmail.isNotEmpty) {
       if (mounted) {
         // error message
-        ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(todoSnackBar(
           Colors.red,
+          20,
           'Email sudah terdaftar',
         ));
       }
@@ -153,8 +174,9 @@ class _RegisterPageState extends State<RegisterPage> {
 
       if (mounted) {
         // success message
-        ScaffoldMessenger.of(context).showSnackBar(toDoSnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(todoSnackBar(
           Colors.green,
+          20,
           'Berhasil mendaftar, silakan masuk',
         ));
 
@@ -191,32 +213,30 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(height: 20),
 
                 // name textfield
-                ToDoTextFormField(
+                TodoTextFormField(
                   controller: nameController,
                   hintText: 'Nama',
                   prefixIcon: const Icon(Icons.person_outline),
-                  obsecureText: false,
-                  readOnly: false,
+                  maxLines: 1,
                 ),
 
                 const SizedBox(height: 10),
 
                 // email textfield
-                ToDoTextFormField(
+                TodoTextFormField(
                   controller: emailController,
                   inputFormatters: [
                     FilteringTextInputFormatter.deny(RegExp(r'\s'))
                   ],
                   hintText: 'Email',
                   prefixIcon: const Icon(Icons.email_outlined),
-                  obsecureText: false,
-                  readOnly: false,
+                  maxLines: 1,
                 ),
 
                 const SizedBox(height: 10),
 
                 // password textfield
-                ToDoTextFormField(
+                TodoTextFormField(
                   controller: passwordController,
                   inputFormatters: [
                     FilteringTextInputFormatter.deny(RegExp(r'\s'))
@@ -234,13 +254,13 @@ class _RegisterPageState extends State<RegisterPage> {
                         : Icons.visibility_outlined),
                   ),
                   obsecureText: passwordIsVisisble,
-                  readOnly: false,
+                  maxLines: 1,
                 ),
 
                 const SizedBox(height: 10),
 
                 // password textfield
-                ToDoTextFormField(
+                TodoTextFormField(
                   controller: confirmPasswordController,
                   inputFormatters: [
                     FilteringTextInputFormatter.deny(RegExp(r'\s'))
@@ -258,13 +278,13 @@ class _RegisterPageState extends State<RegisterPage> {
                         : Icons.visibility_outlined),
                   ),
                   obsecureText: confirmPasswordIsVisisble,
-                  readOnly: false,
+                  maxLines: 1,
                 ),
 
                 const SizedBox(height: 20),
 
                 // sign in button
-                ToDoButton(
+                TodoButton(
                   onPressed: () => register(),
                   color: Theme.of(context).colorScheme.primary,
                   text: 'Daftar',
